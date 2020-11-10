@@ -1,0 +1,44 @@
+﻿@model Calendar_2.Models.IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    int[,] arr = ViewBag.Array;
+}
+
+    <div class="calendar">
+        <div class="header text-center">
+            @Model.CalendarViewModel.Date.ToString("MMMM yyyy")
+        </div>
+    </div>
+
+<div class="row p-2">
+    <div class="col">Пн</div>
+    <div class="col">Вт</div>
+    <div class="col">Ср</div>
+    <div class="col">Чт</div>
+    <div class="col">Пт</div>
+    <div class="col">Сб</div>
+    <div class="col">Вс</div>
+</div>
+
+@for (int i = 0; i < Model.CalendarViewModel.Days.GetLength(0); i++)
+{
+<div class="row p2">
+    @for (int j = 0; j < Model.CalendarViewModel.Days.GetLength(1); j++)
+    {
+        <div class="col">
+            <a asp-action="TimeTable" asp-route-i="@i" asp-route-j="@j" asp-route-count="@Model.Page.TotalPage"
+               class="@(Model.CalendarViewModel.Days[i,j]==DateTime.Now.Date ? "btn btn-success" : (@Model.CalendarViewModel.Date.Date.Month!=@Model.CalendarViewModel.Days[i,j].Date.Month ?"btn btn-danger" : "btn btn-warning"))">
+                @Model.CalendarViewModel.Days[i, j].ToString("dd") (@arr[i, j])
+            </a>
+        </div>
+    }
+</div>
+}
+
+@{
+    Page page = new Page(ViewBag.p);
+}
+<div class="text-center">
+    <a asp-action="Index" asp-route-count="@(page.TotalPage-1)" class="btn btn-primary">Back</a>
+    <a asp-action="Index" asp-route-count="@(page.TotalPage+1)" class="btn btn-primary">Next</a>
+</div>

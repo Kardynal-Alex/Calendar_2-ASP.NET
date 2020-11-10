@@ -1,0 +1,19 @@
+﻿@model Calendar_2.Models.Event
+
+<form asp-action="Edit" method="post" asp-route-i="@ViewBag.i" asp-route-j="@ViewBag.j">
+    <div class="form-group">
+
+        <label asp-for="Date"></label>
+        <input asp-for="Date" class="form-control" readonly />
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+
+        <label asp-for="Time"></label>
+        <input type="time" asp-for="Time" class="form-control" />
+
+        <button class="btn btn-primary" type="submit">Update</button>
+        <a asp-action="TimeTable" asp-route-i="@ViewBag.i" asp-route-j="@ViewBag.j" 
+           class="btn btn-primary">Cancel</a>
+    </div>
+</form>

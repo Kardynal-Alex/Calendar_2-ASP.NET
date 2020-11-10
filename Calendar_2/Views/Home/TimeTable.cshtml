@@ -1,0 +1,44 @@
+﻿@model Calendar_2.Models.Event
+@using Calendar_2.Models
+@{
+    IQueryable<Event> lst = ViewBag.Ev as IQueryable<Event>;
+}
+
+<h2>Current data @ViewBag.Cur</h2>
+
+@foreach (var item in lst)
+{
+    <div class="row p-1">
+        <div class="col">@item.Time.ToString()</div>
+        <div class="col">@item.Name</div>
+        <div class="col">
+            <form asp-action="Delete" method="post" 
+                  asp-route-i="@ViewBag.i" asp-route-j="@ViewBag.j" asp-route-count="@ViewBag.page">
+                <input type="hidden" name="id" value="@item.Id" />
+                <a asp-action="Edit" class="btn btn-sm btn-warning"
+                   asp-route-id="@item.Id"
+                   asp-route-i="@ViewBag.i"
+                   asp-route-j="@ViewBag.j">
+                    Edit
+                </a>
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+}
+
+
+<form asp-action="Create" method="post" asp-route-i="@ViewBag.i" 
+      asp-route-j="@ViewBag.j" asp-route-count="@ViewBag.page">
+    <div class="form-group">
+        <input type="hidden" name="Date" value="@ViewBag.Cur" />
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+
+        <label asp-for="Time"></label>
+        <input type="time" asp-for="Time" class="form-control" />
+        <button class="btn btn-primary" type="submit">Add</button>
+    </div>
+</form>
+<a asp-action="Index" asp-route-count="@ViewBag.page" class="btn btn-danger">Back</a>
