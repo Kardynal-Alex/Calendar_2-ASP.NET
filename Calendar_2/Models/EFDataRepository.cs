@@ -15,13 +15,13 @@ namespace Calendar_2.Models
         CalendarViewModelBuilder calendar = new CalendarViewModelBuilder();
         public int [,] CountAllEvent(int count)
         {
+            DateTime[,] Days = calendar.GetCurrentData(count).Days;
             int[,] arr = new int[6, 7];
             for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    DateTime date = calendar.GetCurData(i, j,count);
-                    arr[i,j] = GetAllCurrentEvent(date).Count();
+                    arr[i, j] = GetAllCurrentEvent(Days[i,j]).Count();
                 }
             }
             return arr;

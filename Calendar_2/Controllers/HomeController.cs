@@ -35,8 +35,9 @@ namespace Calendar_2.Controllers
         public IActionResult TimeTable(int i,int j, int count)
         {
             CalendarViewModelBuilder cl = new CalendarViewModelBuilder();
-            ViewBag.Cur = cl.GetCurData(i, j,count).ToString("dd-MM-yyyy");
-            DateTime dt = cl.GetCurData(i, j,count);
+            DateTime[,] Days = cl.GetCurrentData(count).Days;
+            ViewBag.Cur = Days[i,j].ToString("dd-MM-yyyy");
+            DateTime dt = Days[i,j];
             ViewBag.Ev = repository.GetAllCurrentEvent(dt);
             ViewBag.i = i;
             ViewBag.j = j;
