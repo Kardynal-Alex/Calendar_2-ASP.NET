@@ -13,9 +13,9 @@ namespace Calendar_2.Models
             context = ctx;
         }
         CalendarViewModelBuilder calendar = new CalendarViewModelBuilder();
-        public int [,] CountAllEvent(int count)
+        public int [,] CountAllEvent(DateTime [,] date)
         {
-            DateTime[,] Days = calendar.GetCurrentData(count).Days;
+            DateTime[,] Days = date;
             int[,] arr = new int[6, 7];
             for (int i = 0; i < 6; i++)
             {

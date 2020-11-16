@@ -12,6 +12,6 @@ namespace Calendar_2.Models
         public void DeleteEvent(int id);
         public void UpdateEvent(Event updateEvent);
         public Event GetEvent(int id);
-        public int[,] CountAllEvent(int count);
+        public int[,] CountAllEvent(DateTime[,] date);
     }
 }

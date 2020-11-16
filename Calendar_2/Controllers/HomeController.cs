@@ -18,10 +18,10 @@ namespace Calendar_2.Controllers
             repository = repo;
         }
 
-        public IActionResult Index(int count=0)
+        public async Task<IActionResult> Index(int count=0)
         {
-            ViewBag.Array = repository.CountAllEvent(count);
             var calendarViewModel = new CalendarViewModelBuilder().GetCurrentData(count);
+            ViewBag.Array = await Task.Run(() => repository.CountAllEvent(calendarViewModel.Days));
             Page page = new Page(count);
             IndexViewModel indexViewModel = new IndexViewModel
             {
@@ -32,13 +32,13 @@ namespace Calendar_2.Controllers
             return View(indexViewModel);
         }
      
-        public IActionResult TimeTable(int i,int j, int count)
+        public async Task<IActionResult> TimeTable(int i,int j, int count)
         {
             CalendarViewModelBuilder cl = new CalendarViewModelBuilder();
-            DateTime[,] Days = cl.GetCurrentData(count).Days;
-            ViewBag.Cur = Days[i,j].ToString("dd-MM-yyyy");
+            DateTime[,] Days = await Task.Run(() => cl.GetCurrentData(count).Days);
+            ViewBag.CurDate = Days[i,j].ToString("dd-MM-yyyy");
             DateTime dt = Days[i,j];
-            ViewBag.Ev = repository.GetAllCurrentEvent(dt);
+            ViewBag.Ev = await Task.Run(() => repository.GetAllCurrentEvent(dt));
             ViewBag.i = i;
             ViewBag.j = j;
             ViewBag.page = count;

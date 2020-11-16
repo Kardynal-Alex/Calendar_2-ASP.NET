@@ -4,7 +4,7 @@
     IQueryable<Event> lst = ViewBag.Ev as IQueryable<Event>;
 }
 
-<h2>Current data @ViewBag.Cur</h2>
+<h2>Current data @ViewBag.CurDate</h2>
 
 @foreach (var item in lst)
 {
@@ -31,7 +31,7 @@
 <form asp-action="Create" method="post" asp-route-i="@ViewBag.i" 
       asp-route-j="@ViewBag.j" asp-route-count="@ViewBag.page">
     <div class="form-group">
-        <input type="hidden" name="Date" value="@ViewBag.Cur" />
+        <input type="hidden" name="Date" value="@ViewBag.CurDate" />
 
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
