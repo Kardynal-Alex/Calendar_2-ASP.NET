@@ -12,12 +12,10 @@ namespace Calendar_2.Controllers
     public class HomeController : Controller
     {
         private IDataRepository repository;
-
         public HomeController(IDataRepository repo)
         {
             repository = repo;
         }
-
         public async Task<IActionResult> Index(int count=0)
         {
             var calendarViewModel = new CalendarViewModelBuilder().GetCurrentData(count);
@@ -31,7 +29,6 @@ namespace Calendar_2.Controllers
             ViewBag.p = count;
             return View(indexViewModel);
         }
-     
         public async Task<IActionResult> TimeTable(int i,int j, int count)
         {
             CalendarViewModelBuilder cl = new CalendarViewModelBuilder();
@@ -51,21 +48,21 @@ namespace Calendar_2.Controllers
             return View("Editor",repository.GetEvent(id));
         }
         [HttpPost]
-        public IActionResult Edit(Event @event,int i,int j,int count)
+        public async Task<IActionResult> Edit(Event @event,int i,int j,int count)
         {
-            repository.UpdateEvent(@event);
+            await repository.UpdateEvent(@event);
             return RedirectToRoute(new { Controller = "Home", Action = "TimeTable", i = i, j = j, count = count });
         }
         [HttpPost]
-        public IActionResult Create(Event @event,int i,int j,int count)
+        public async Task<IActionResult> Create(Event @event,int i,int j,int count)
         {
-            repository.CreateEvent(@event);
+            await repository.CreateEvent(@event);
             return RedirectToRoute(new { Controller = "Home", Action = "TimeTable", i = i, j = j, count = count });
         }
         [HttpPost]
-        public IActionResult Delete(int id,int i,int j,int count)
+        public async Task<IActionResult> Delete(int id,int i,int j,int count)
         {
-            repository.DeleteEvent(id);
+            await repository.DeleteEvent(id);
             return RedirectToRoute(new { Controller = "Home", Action = "TimeTable", i = i, j = j, count = count });
         }
         public IActionResult Privacy()

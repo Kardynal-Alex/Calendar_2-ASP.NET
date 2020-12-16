@@ -7,10 +7,10 @@ namespace Calendar_2.Models
 {
     public interface IDataRepository
     {
-        public void CreateEvent(Event newEvent);
+        public Task CreateEvent(Event newEvent);
         public IQueryable<Event> GetAllCurrentEvent(DateTime date);
-        public void DeleteEvent(int id);
-        public void UpdateEvent(Event updateEvent);
+        public Task DeleteEvent(int id);
+        public Task UpdateEvent(Event updateEvent);
         public Event GetEvent(int id);
         public int[,] CountAllEvent(DateTime[,] date);
     }

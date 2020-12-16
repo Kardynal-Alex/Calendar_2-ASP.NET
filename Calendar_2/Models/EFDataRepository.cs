@@ -30,27 +30,26 @@ namespace Calendar_2.Models
         {
             return context.Events.Find(id);
         }
-        public void CreateEvent(Event newEvent)
+        public async Task CreateEvent(Event newEvent)
         {
             newEvent.Id = 0;
             context.Events.Add(newEvent);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         public IQueryable<Event> GetAllCurrentEvent(DateTime date)
         {
             IQueryable<Event> events = context.Events.OrderBy(x=>x.Time).Where(x => x.Date == date);
-            
             return events;
         }
-        public void DeleteEvent(int id)
+        public async Task DeleteEvent(int id)
         {
             context.Events.Remove(new Event { Id = id });
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
-        public void UpdateEvent(Event updateEvent)
+        public async Task UpdateEvent(Event updateEvent)
         {
             context.Events.Update(updateEvent);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
