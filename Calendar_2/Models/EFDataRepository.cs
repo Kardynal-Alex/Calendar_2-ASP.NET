@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Calendar_2.Models;
+
 namespace Calendar_2.Models
 {
     public class EFDataRepository : IDataRepository
@@ -12,7 +11,6 @@ namespace Calendar_2.Models
         {
             context = ctx;
         }
-        CalendarViewModelBuilder calendar = new CalendarViewModelBuilder();
         public int [,] CountAllEvent(DateTime [,] date)
         {
             DateTime[,] Days = date;
@@ -21,15 +19,13 @@ namespace Calendar_2.Models
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    arr[i, j] = GetAllCurrentEvent(Days[i,j]).Count();
+                    arr[i, j] = GetAllCurrentEventWithoutOrder(Days[i,j]).Count();
                 }
             }
             return arr;
         }
-        public Event GetEvent(int id)
-        {
-            return context.Events.Find(id);
-        }
+        public IQueryable<Event> GetAllCurrentEventWithoutOrder(DateTime date) => context.Events.Where(x => x.Date == date);
+        public async Task<Event> GetEvent(int id) => await context.Events.FindAsync(id);
         public async Task CreateEvent(Event newEvent)
         {
             newEvent.Id = 0;
@@ -38,8 +34,7 @@ namespace Calendar_2.Models
         }
         public IQueryable<Event> GetAllCurrentEvent(DateTime date)
         {
-            IQueryable<Event> events = context.Events.OrderBy(x=>x.Time).Where(x => x.Date == date);
-            return events;
+            return context.Events.OrderBy(x => x.Time).Where(x => x.Date == date);
         }
         public async Task DeleteEvent(int id)
         {

@@ -29,9 +29,9 @@
         {
             <div class="col">
                 <a asp-action="TimeTable" asp-route-i="@i" asp-route-j="@j" asp-route-count="@Model.Page.TotalPage"
-                   class="@(Model.CalendarViewModel.Days[i,j]==DateTime.Now.Date ? "btn btn-success" : 
-                    (@Model.CalendarViewModel.Date.Date.Month==@Model.CalendarViewModel.Days[i,j].Date.Month ?"btn btn-danger" : "btn btn-warning"))">
-                    @Model.CalendarViewModel.Days[i, j].ToString("dd") (@arr[i, j])
+                   class="@(Model.CalendarViewModel.Days[i, j] == DateTime.Now.Date ? "btn btn-success" :
+                        (@Model.CalendarViewModel.Date.Date.Month == @Model.CalendarViewModel.Days[i, j].Date.Month ? "btn btn-danger" : "btn btn-warning"))">
+                        @Model.CalendarViewModel.Days[i, j].ToString("dd") (@arr[i, j])
                 </a>
             </div>
         }

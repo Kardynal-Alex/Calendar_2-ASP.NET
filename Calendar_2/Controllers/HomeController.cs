@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Calendar_2.Models;
 
 namespace Calendar_2.Controllers
@@ -16,20 +13,20 @@ namespace Calendar_2.Controllers
         {
             repository = repo;
         }
-        public async Task<IActionResult> Index(int count=0)
+        public async Task<IActionResult> Index(int count = 0)
         {
             var calendarViewModel = new CalendarViewModelBuilder().GetCurrentData(count);
             ViewBag.Array = await Task.Run(() => repository.CountAllEvent(calendarViewModel.Days));
             Page page = new Page(count);
             IndexViewModel indexViewModel = new IndexViewModel
             {
-                CalendarViewModel=calendarViewModel,
-                Page=page
+                CalendarViewModel = calendarViewModel,
+                Page = page
             };
             ViewBag.p = count;
             return View(indexViewModel);
         }
-        public async Task<IActionResult> TimeTable(int i,int j, int count)
+        public async Task<IActionResult> TimeTable(int i, int j, int count)
         {
             CalendarViewModelBuilder cl = new CalendarViewModelBuilder();
             DateTime[,] Days = await Task.Run(() => cl.GetCurrentData(count).Days);
@@ -41,33 +38,29 @@ namespace Calendar_2.Controllers
             ViewBag.page = count;
             return View();
         }
-        public IActionResult Edit(int id,int i,int j)
+        public async Task<IActionResult> Edit(int id, int i, int j)
         {
             ViewBag.i = i;
             ViewBag.j = j;
-            return View("Editor",repository.GetEvent(id));
+            return View("Editor", await repository.GetEvent(id));
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Event @event,int i,int j,int count)
+        public async Task<IActionResult> Edit(Event @event, int i, int j, int count)
         {
             await repository.UpdateEvent(@event);
             return RedirectToRoute(new { Controller = "Home", Action = "TimeTable", i = i, j = j, count = count });
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Event @event,int i,int j,int count)
+        public async Task<IActionResult> Create(Event @event, int i, int j, int count)
         {
             await repository.CreateEvent(@event);
             return RedirectToRoute(new { Controller = "Home", Action = "TimeTable", i = i, j = j, count = count });
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(int id,int i,int j,int count)
+        public async Task<IActionResult> Delete(int id, int i, int j, int count)
         {
             await repository.DeleteEvent(id);
             return RedirectToRoute(new { Controller = "Home", Action = "TimeTable", i = i, j = j, count = count });
-        }
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

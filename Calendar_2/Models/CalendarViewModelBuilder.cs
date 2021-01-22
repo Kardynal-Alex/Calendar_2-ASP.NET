@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Calendar_2.Models
 {
@@ -13,18 +10,18 @@ namespace Calendar_2.Models
         public CalendarViewModel GetCurrentData(int count)
         {
             DateTime[,] days = new DateTime[6, 7];
-            DateTime d=new DateTime();
-            DateTime date=new DateTime();
+            DateTime d = new DateTime();
+            DateTime date = new DateTime();
 
             int x = DateTime.Now.Month + count;
-            if (x > 12 && (x - 1) % 12 == 0 && temp < x) //вправо 12->1(> поточного року)
+            if (x > 12 && (x - 1) % 12 == 0 && temp < x)  //вправо 12->1(> поточного року)
             {
                 ++year; month = 1;
                 date = new DateTime(DateTime.Now.Year + year, month, 1);
                 d = date;
             }
             else
-            if (x % 12 == 0 && x > 12 && temp > x)  //вліво 1<-12 (> поточного року)
+            if (x % 12 == 0 && x > 12 && temp > x)   //вліво 1<-12 (> поточного року)
             {
                 --year; month = 12;
                 date = new DateTime(DateTime.Now.Year + year, month, 1);
@@ -39,14 +36,14 @@ namespace Calendar_2.Models
                 d = date;
             }
             else
-            if (x <= 0 && x % (-12) == 0 && temp > x) //вліво 12<-1(< поточного року)
+            if (x <= 0 && x % (-12) == 0 && temp > x)  //вліво 12<-1(< поточного року)
             {
                 --year; month = 12;
                 date = new DateTime(DateTime.Now.Year + year, month, 1);
                 d = date;
             }
             else
-            if (x <= 0 && (x - 1) % (-12) == 0 && temp < x)//вправо 1->12(< поточного року)
+            if (x <= 0 && (x - 1) % (-12) == 0 && temp < x) //вправо 1->12(< поточного року)
             {
                 ++year; month = 1;
                 date = new DateTime(DateTime.Now.Year + year, month, 1);
@@ -78,7 +75,7 @@ namespace Calendar_2.Models
             offset--;
             d = d.AddDays(offset * -1);
 
-            for (int i = 0; i != 6; i++)
+            for (int i = 0; i != 6; i++) 
             {
                 for (int j = 0; j != 7; j++)
                 {

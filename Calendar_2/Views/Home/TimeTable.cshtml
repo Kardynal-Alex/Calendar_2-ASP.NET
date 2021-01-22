@@ -27,9 +27,10 @@
     </div>
 }
 
-
-<form asp-action="Create" method="post" asp-route-i="@ViewBag.i" 
-      asp-route-j="@ViewBag.j" asp-route-count="@ViewBag.page">
+<form asp-action="Create" method="post" 
+      asp-route-i="@ViewBag.i" 
+      asp-route-j="@ViewBag.j" 
+      asp-route-count="@ViewBag.page">
     <div class="form-group">
         <input type="hidden" name="Date" value="@ViewBag.CurDate" />
 

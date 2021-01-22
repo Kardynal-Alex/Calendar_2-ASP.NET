@@ -1,4 +1,3 @@
-using System;
 
 namespace Calendar_2.Models
 {
