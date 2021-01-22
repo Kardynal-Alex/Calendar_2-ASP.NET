@@ -21,7 +21,7 @@ namespace Calendar_2.Models
                 d = date;
             }
             else
-            if (x % 12 == 0 && x > 12 && temp > x)   //вліво 1<-12 (> поточного року)
+            if (x % 12 == 0 && x > 12 && temp > x)  //вліво 1<-12 (> поточного року)
             {
                 --year; month = 12;
                 date = new DateTime(DateTime.Now.Year + year, month, 1);
