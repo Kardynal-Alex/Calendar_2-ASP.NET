@@ -4,9 +4,40 @@ namespace Calendar_2.Models
 {
     public class CalendarViewModelBuilder
     {
+        public CalendarViewModel GetCurrentData(int count)
+        {
+            DateTime[,] days = new DateTime[6, 7];
+            DateTime d = DateTime.Now.Date;
+            DateTime date = DateTime.Now.Date;
+            date = date.Date.AddMonths(count);
+            d = d.Date.AddMonths(count);
+
+            int offset = (int)d.DayOfWeek;
+
+            if (offset == 0)
+                offset = 7;
+
+            offset--;
+            d = d.AddDays(offset * -1);
+
+            for (int i = 0; i != 6; i++)
+            {
+                for (int j = 0; j != 7; j++)
+                {
+                    days[i, j] = d;
+                    d = d.AddDays(1);
+                }
+            }
+            return new CalendarViewModel()
+            {
+                Date = date,
+                Days = days
+            };
+        }
+        /*
         public static int year { get; set; } = 0;
         public static int month { get; set; } = 0;
-        public static int temp { get; set; } = 0;
+        public static int temp { get; set; } = 0; 
         public CalendarViewModel GetCurrentData(int count)
         {
             DateTime[,] days = new DateTime[6, 7];
@@ -88,7 +119,7 @@ namespace Calendar_2.Models
                 Date = date,
                 Days = days
             };
-        }
-      
+        }*/
+
     }
 }
