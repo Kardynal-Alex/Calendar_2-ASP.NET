@@ -7,8 +7,8 @@ namespace Calendar_2.Models
         public CalendarViewModel GetCurrentData(int count)
         {
             DateTime[,] days = new DateTime[6, 7];
-            DateTime d = DateTime.Now.Date;
-            DateTime date = DateTime.Now.Date;
+            DateTime d = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime date = d;
             date = date.Date.AddMonths(count);
             d = d.Date.AddMonths(count);
 
